@@ -165,16 +165,22 @@ def user_stats(df,city):
     print('-'*40)
 
 def display_data(df):
+    #get user input if he wants to see the rawdata
+
     rawdata_request = input('\nWould you like to see the raw data? Enter yes or no.\n')
+    #set start values
     start = 0
     end = 5
 
+    #show 5 lines of rawdata as long as the user wants to see it
     while rawdata_request.lower() == 'yes':
         print('-'*40)
+        #check if end of rawdata reached
         if end > len(df.index):
             end = -1
         rawdata=df.iloc[start:end]
         print(rawdata,'\n')
+        #end loop after last print if rawdata end was reached with some descriptive message
         if end == -1:
             print('\nReached end of raw data. Continuing with normal program\n')
             print('-'*40)
