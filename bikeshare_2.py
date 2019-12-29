@@ -6,10 +6,6 @@ CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
 
-GENDER_CITIES = ['chicago','new york city']
-
-BIRTHYEAR_CITIES = ['chicago','new york city']
-
 MONTH_DATA = ['January','Feburary','March','April','May','June','All']
 
 DAY_DATA = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday','All']
@@ -77,7 +73,7 @@ def time_stats(df):
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
 
-    # display the most common month‚
+    # display the most common month
     popular_month = df['Start Time'].dt.month.mode()[0]
     print('The most popular month is:', MONTH_DATA[popular_month-1],'\n')
 
@@ -100,16 +96,16 @@ def station_stats(df):
     start_time = time.time()
 
     # display most commonly used start station
-    popular_start_station = df['Start Station'].mode()[0]
+    popular_start_station = df['Start Station'].value_counts().idxmax()
     print('The most popular station to start a trip is: ', popular_start_station,'\n')
 
     # display most commonly used end station
-    popular_end_station = df['End Station'].mode()[0]
+    popular_end_station = df['End Station'].value_counts().idxmax()
     print('The most popular station to end a trip is: ', popular_end_station,'\n')
 
     # display most frequent combination of start station and end station trip
     df['trip'] = df['Start Station'] + ' Station to '+ df['End Station'] + ' Station'
-    popular_route= df['trip'].mode()[0]
+    popular_route= df['trip'].value_counts().idxmax()
     print('The most popular trip is from', popular_route,'\n')
 
     print("\nThis took %s seconds." % (time.time() - start_time))
@@ -146,14 +142,14 @@ def user_stats(df,city):
     print(user_types,'\n')
 
     # Display counts of gender
-    if city in GENDER_CITIES:
+    if 'Gender' in df.columns:
         gender_types = df['Gender'].value_counts()
         print(gender_types,'\n')
     else:
         print('Gender based anaylsis are not available for the selected city.\n')
 
     # Display earliest, most recent, and most common year of birth
-    if city in BIRTHYEAR_CITIES:
+    if 'Birth Year' in df.columns:
         youngest_birth = int(df['Birth Year'].max())
         oldest_birth = int(df['Birth Year'].min())
         common_birth = int(df['Birth Year'].mode()[0])
