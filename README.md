@@ -1,8 +1,8 @@
 ### Date created
-29.12.2019
+29.12.2019 - 18:40
 
 ### Project Title
-Bikeshare Project
+US bikeshare analysis project
 
 ### Description
 Python based tool to analyze data from a US based bikesharing company
